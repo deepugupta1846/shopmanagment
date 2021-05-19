@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Home{% endblock title %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static '/app/styling/base.css' %}">
+    <!--<link rel="stylesheet" type="text/javascript" href="{% static '/app/javascript/base.js' %}">-->
+    <script type="text/javascript">
+        function myfunction()
+        {
+        var msg = document.getElementById('msg');
+        if(msg.style.display=="block")
+           msg.style.display="none";
+            else
+           msg.style.display="block";
+        }
+    </script>
+</head>
+<body>
+<nav>
+    <div class="container-md navbar navbar-expand-md navbar-light">
+      <a class="navbar-brand" href="#">Stationary</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo"
+        aria-controls="navbarTogglerDemo" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse " id="navbarTogglerDemo">
+
+        <div class="nav navbar-nav ml-auto">
+
+          <a class="nav-item nav-link " href="/"><strong>Home</strong></a>
+          <a class="nav-item nav-link" href="/additem/"><strong>Add Item</strong></a>
+          <a class="nav-item nav-link" href="/showitem/"><strong>Show Item</strong></a>
+          <a class="nav-item nav-link" href="#"><strong>Add Customer</strong></a>
+            <a class="nav-item nav-link" href="#"><strong>Show Customer</strong></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            {% block content %}{% endblock content %}
+        </div>
+    </div>
+<div class="row">
+    <div class="col-md-1"></div>
+        <div class="col-md-11">
+            {% block contents %}{% endblock contents %}
+        </div>
+    </div>
+</body>
+<footer>
+    {% block footer %}
+    {% endblock footer %}
+</footer>
+</html>

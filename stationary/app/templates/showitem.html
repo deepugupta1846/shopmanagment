@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block title %}Add Item{% endblock title %}
+{% block contents %}
+<script type="text/javascript">
+        function sc(){
+        alert(document.cookie);
+        }
+        function uc(){
+        var d = new Date();
+        d.setTime(d.getTime() + (2*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = "tr=10;" + expires + ";path=/";
+        alert("cookie updated");
+        }
+        function stcv(){
+        getcookie("name");
+        }
+        function getcookie(cn){
+        var cookie = document.cookie;
+        var allcookie=cookie.split(";");
+        cookie="";
+        for (i=0;i<allcookie.length;i++){
+        /*search given cookie in cookie list if found copy it in cookie*/
+        if(allcookie[i].indexOf(cn)!=-1)
+        {
+            cookie=allcookie[i];
+            break;
+        }
+
+        }
+            if(cookie != "")
+            {
+                cookie=cookie.split("=",2)[1];
+            }
+
+        return cookie;
+
+        }
+        function changeTrCookie()
+        {
+                var s=document.getElementById("str").value;
+                 var d = new Date();
+        d.setTime(d.getTime() + (2*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+
+                document.cookie = "tr="+s+";" + expires + ";path=/";
+                window.location.replace("http://127.0.0.1:8000/showitem/1/");
+        }
+    </script>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <tr>
+                <th>Item_ID</th>
+                <th>Item_Name</th>
+                <th>Company</th>
+                <th>Type</th>
+                <th>Rate</th>
+                <th>Action</th>
+            </tr>
+            {% for item in allitem %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.Item_Name|upper }}</td>
+                <td>{{ item.Company|upper }}</td>
+                <td>{{ item.Type|upper }}</td>
+                <td>{{ item.Rate }}/-</td>
+                <td><a href="/showitem/delete/{{ item.id }}/"><button class="btn btn-danger">Delete</button></a>
+                    <a href="/showitem/update/{{ item.id }}/"><button class="btn btn-warning">Update</button></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="row">
+            <div class="col-md-3">
+                <label>Total No. Of Record:</label>
+                <select onchange="changeTrCookie();" id="str">
+                    <script type="text/javascript">
+                        var tr = parseInt(getcookie("tr"));
+
+                           var options="";
+                           var optionValue=[5,10,25,50,100];
+                           var i;
+                           for(i=0;i<optionValue.length;i++)
+                           {
+                           options=options+'<option value="'+optionValue[i]+'"';
+                           if(optionValue[i]==tr)
+                           options=options+" selected";
+                           options=options+'>'+optionValue[i]+'</option>';
+                           }
+                           document.write(options);
+                    </script>
+
+                </select>
+            </div>
+            <div class="col-md-9">
+                <p>page:
+        {% for i in pages %}
+            <a href="{{i.href}}">{{ i.content }}</a>
+            {% endfor %}
+        </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!--<button onclick="sc();">Show Cookie</button>
+    <button onclick="uc();">Update Cookie</button>
+    <button onclick="stcv();">Show tr cookie value</button>-->
+</div>
+
+{% endblock contents %}
+{% block footer %}
+<p>Total Item : {{ allitem|length }}</p>
+{% endblock footer %}

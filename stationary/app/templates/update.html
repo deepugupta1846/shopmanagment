@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Add Item{% endblock title %}
+{% block content %}
+<p class="alert alert-success" id="msg">{{ msg }}</p>
+<form method="post" action="" onsubmit="return myfunction();">
+    {% csrf_token %}
+    {{ updateform }}
+    <input type="submit" value="Submit" class="btn btn-primary mt-2">
+</form>
+{% endblock content %}
